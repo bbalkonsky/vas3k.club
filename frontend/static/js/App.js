@@ -189,11 +189,20 @@ const App = {
         const comments = document.querySelectorAll(".reply, .comment");
         const collapsedSet = getCollapsedCommentThreadsSet();
         for (const comment of comments) {
-            if (collapsedSet.has(comment.id)) {
+            if (collapsedSet.has(comment.id) && !findNewReplies(comment)) {
                 comment.querySelector(".comment-collapse-stub, .reply-collapse-stub").click();
             }
         }
     },
+    findNewReplies(comment) {
+        const childComments = a.querySelectorAll('.reply');
+        for (let comment of childComments) {
+            if (comment.classList.contains('comment-is-new')) {
+                return true;
+            }
+        }
+        return false;
+    }
 };
 
 export default App;
